@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'bootstrap-5.3.0/css/bootstrap.min.css'%}">
+    {% block css %}{% endblock %}
+</head>
+<body>
+{% block stock_info %}{% endblock %}
+{% block daily %}{% endblock %}
+{% block balance %}{% endblock %}
+{% block add_daily %}{% endblock %}
+{% block add_history_daily %}{% endblock %}
+{% block balance_index %}{% endblock %}
+
+<script src="{% static 'jquery-3.7.0.min.js'%}"></script>
+<script src="{% static 'bootstrap-5.3.0/js/bootstrap.min.js'%}"></script>
+{% block stock_js %}{% endblock %}
+</body>
+</html>

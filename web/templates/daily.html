@@ -1,0 +1,79 @@
+{% extends 'basic.html' %}
+{% block daily %}
+
+    <div>
+        <div style="margin:10px 0px;">
+            <a href="/add/daily/" class="btn btn-primary">添加每日股票数据</a>
+            <a href="/add/history/daily/" class="btn btn-primary">添加历史股票数据</a>
+        </div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">股票名称</th>
+                <th scope="col">股票代码</th>
+                <th scope="col">交易日期</th>
+                <th scope="col">开盘价</th>
+                <th scope="col">收盘价</th>
+                <th scope="col">最高价</th>
+                <th scope="col">最低价</th>
+                <th scope="col">涨跌额</th>
+                <th scope="col">涨跌幅</th>
+                <th scope="col">成交量（手）</th>
+                <th scope="col">成交额(千）</th>
+                <th scope="col">换手率</th>
+                <th scope="col">PE_TTM</th>
+                <th scope="col">PB</th>
+                <th scope="col">流通股本（万股）</th>
+                <th scope="col">流通市值（万）</th>
+                <th scope="col">总股本（万股）</th>
+                <th scope="col">总市值（万）</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stock in dailyset %}
+                <tr>
+                    <td>{{ stock.name }}</td>
+                    <td>{{ stock.ts_code }}</td>
+                    <td>{{ stock.trade_date }}</td>
+                    <td>{{ stock.open }}</td>
+                    <td>{{ stock.close }}</td>
+                    <td>{{ stock.high }}</td>
+                    <td>{{ stock.low }}</td>
+                    <td>{{ stock.change }}</td>
+                    <td>{{ stock.pct_chg }}</td>
+                    <td>{{ stock.vol }}</td>
+                    <td>{{ stock.amount }}</td>
+                    <td>{{ stock.turnover_rate }}</td>
+                    <td>{{ stock.PE_TTM }}</td>
+                    <td>{{ stock.PB }}</td>
+                    <td>{{ stock.float_share }}</td>
+                    <td>{{ stock.circ_mv }}</td>
+                    <td>{{ stock.total_share }}</td>
+                    <td>{{ stock.total_mv }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+    <nav  aria-label="Page navigation" >
+        <ul class="pagination">
+            {% if dailyset.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ dailyset.previous_page_number }}">上一页</a>
+                </li>
+            {% endif %}
+            <li class="page-item">
+                <a class="page-link" class="current-page"  aria-current="page" >{{ dailyset.number }}</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" class="total-pages">{{ dailyset.paginator.num_pages }}</a>
+            </li>
+            {% if dailyset.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ dailyset.next_page_number }}">下一页</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+{% endblock %}

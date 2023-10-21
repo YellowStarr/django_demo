@@ -1,0 +1,27 @@
+{% extends 'basic.html' %}
+{% block add_history_daily %}
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">添加历史数据</div>
+        <div class="panel-body">
+            <form method="post" action="/add/history/daily/" class="form-inline">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label class="sr-only">股票代码</label>
+                    <input class="form-control" type="text" placeholder="股票代码" name="ts_code" id="ts_code" />
+                </div>
+                <div class="form-group">
+                    <label class="sr-only">开始日期</label>
+                    <input class="form-control" type="text" placeholder="日期" name="start_date" id="start_date" />
+                </div>
+                <div class="form-group">
+                    <label class="sr-only">结束日期</label>
+                    <input class="form-control" type="text" placeholder="日期" name="end_date" id="end_date" />
+                </div>
+                <button class="btn btn-primary" type="submit" value="提交"> 提交 </button>
+
+        </form>
+    </div>
+</div>
+</div>
+{% endblock %}

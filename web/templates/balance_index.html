@@ -1,0 +1,46 @@
+{% extends 'basic.html' %}
+{% block balance_index %}
+    <p>负债表图</p>
+    <canvas id="myChart"></canvas>
+
+{% endblock %}
+
+{% block stock_js %}
+    <script src="https://cdn.jsdeliver.net/npm/chart.js"></script>
+    <script>
+    var chartData = {{ balance_index|safe }};
+    var labels = [];
+    var field1Data = [];
+    var field2Data = [];
+    for (var i = 0; i < chartData.length; i++) {
+            labels.push(chartData[i].end_date);
+            field1Data.push(chartData[i].cap_rese);
+            field2Data.push(chartData[i].undistr_porfit);
+        }
+       // 使用Chart.js绘制柱状图
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Field 1',
+                    data: field1Data,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)'
+                }, {
+                    label: 'Field 2',
+                    data: field2Data,
+                    backgroundColor: 'rgba(255, 99, 132, 0.5)'
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}
