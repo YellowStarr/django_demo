@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 import pandas as pd
+import json
 
 # Create your views here.
 
@@ -170,9 +171,16 @@ def balance_index(request):
     df["f_ann_date"] = df["f_ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
     # df["f_ann_date"] = df["f_ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
     data = df.to_dict()
+    # js中没有None类型，通过json模块 将None转变为null
+    json_data = json.dumps(data)
+
+
     '''
     result = list(queryset.values())
     df = pd.DataFrame(result)
     month = df["end_date"]
     print(month)'''
-    return render(request, "balance_index.html", {"balance_index": data})
+    return render(request, "balance_index.html", {"balance_index": json_data})
+    # return render(request, "balance_index.html")
+
+

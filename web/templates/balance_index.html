@@ -1,46 +1,122 @@
 {% extends 'basic.html' %}
 {% block balance_index %}
     <p>负债表图</p>
-    <canvas id="myChart"></canvas>
+    <div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">资产构成</div>
+        <div class="panel-body">
+            <div id="fix_and_cur" style="widith:800px;height: 400px"></div>
+        </div>
 
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">现金构成</div>
+        <div class="panel-body">
+            <div id="cash_component" style="widith:800px;height: 400px"></div>
+        </div>
+
+    </div>
+</div>
 {% endblock %}
 
 {% block stock_js %}
-    <script src="https://cdn.jsdeliver.net/npm/chart.js"></script>
-    <script>
-    var chartData = {{ balance_index|safe }};
-    var labels = [];
-    var field1Data = [];
-    var field2Data = [];
-    for (var i = 0; i < chartData.length; i++) {
-            labels.push(chartData[i].end_date);
-            field1Data.push(chartData[i].cap_rese);
-            field2Data.push(chartData[i].undistr_porfit);
-        }
-       // 使用Chart.js绘制柱状图
-        var ctx = document.getElementById('myChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Field 1',
-                    data: field1Data,
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)'
-                }, {
-                    label: 'Field 2',
-                    data: field2Data,
-                    backgroundColor: 'rgba(255, 99, 132, 0.5)'
-                }]
+{#    import * as echarts from 'echarts';#}
+{#    <script src="{% static 'echarts.js' %}"></script>#}
+    <script type="text/javascript">
+    var dictData = JSON.parse(JSON.stringify({{ balance_index|safe }}));
+{#    console.log(dictData["undistr_porfit"]);#}
+    var endDate = Object.values(dictData["end_date"]);
+    var fix_assets_total = Object.values(dictData["fix_assets_total"]);
+    var total_cur_assets = Object.values(dictData["total_cur_assets"]);
+    var total_assets = Object.values(dictData["total_assets"]);
+    var myChart = echarts.init(document.getElementById("fix_and_cur"));
+    var option1 = {
+        legend: {
+            data:["固定资产","流动资产","总资产"]
+        },
+        xAxis: {
+            type: 'category',
+            data: endDate
+
+        },
+        yAxis: {},
+        series: [
+            {
+                type: 'bar',
+                name: '固定资产',
+                data: fix_assets_total,
+                stack: 'x'
             },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
+            {
+                type: 'bar',
+                name: '流动资产',
+                data: total_cur_assets,
+                stack: 'x'
+            },
+            {
+                type: 'bar',
+                name: '总资产',
+                data: total_assets,
+
             }
-        });
+
+        ]
+};
+    myChart.setOption(option1);
+
+    var money_cap = Object.values(dictData["money_cap"]);
+    var oth_cur_assets = Object.values(dictData["oth_cur_assets"]);
+    var prepayment = Object.values(dictData["prepayment"]);
+    var int_receiv = Object.values(dictData["int_receiv"]);
+    var inventories = Object.values(dictData["inventories"]);
+    var cash_graph = echarts.init(document.getElementById("cash_component"));
+    var option2 = {
+        legend: {
+            data:["总资产","货币资金", "其他流动资产", "预付款项", "应收利息", "存货"]
+        },
+        xAxis: {
+            type: 'category',
+            data: endDate
+
+        },
+        yAxis: {},
+        series: [
+            {
+                type: 'bar',
+                name: '总资产',
+                data: total_assets,
+
+            },
+            {
+                type: 'bar',
+                name: '货币资金',
+                data: money_cap,
+
+            },
+            {
+                type: 'bar',
+                name: '其他流动资产',
+                data: oth_cur_assets
+            },
+            {
+                type: 'bar',
+                name: '预付款项',
+                data: prepayment
+            },
+            {
+                type: 'bar',
+                name: '应收利息',
+                data: int_receiv
+            },
+            {
+                type: 'bar',
+                name: '存货',
+                data: inventories
+            }
+
+        ]
+};
+    cash_graph.setOption(option2);
+
     </script>
 {% endblock %}

@@ -28,4 +28,5 @@ urlpatterns = [
     path('balance/', views.finance_balance_list),
     path('stock_info/', views.stock_info),
     path('balance_index/', views.balance_index),
+
 ]
