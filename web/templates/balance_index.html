@@ -5,14 +5,29 @@
     <div class="panel panel-default">
         <div class="panel-heading">资产构成</div>
         <div class="panel-body">
-            <div id="fix_and_cur" style="widith:800px;height: 400px"></div>
+            <div id="fix_and_cur" style="widith:1000px;height: 400px"></div>
         </div>
 
     </div>
     <div class="panel panel-default">
         <div class="panel-heading">现金构成</div>
         <div class="panel-body">
-            <div id="cash_component" style="widith:800px;height: 400px"></div>
+            <div id="cash_component" style="widith:1000px;height: 400px"></div>
+        </div>
+
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">负债情况</div>
+        <div class="panel-body">
+            <div id="debt" style="widith:1000px;height: 400px"></div>
+        </div>
+    </div>
+        <div class="panel panel-default">
+        <div class="panel-heading">应收票据和应收款项</div>
+        <div class="panel-body">
+            <div id="receiv" style="widith:1000px;height: 400px"></div>
+            <div>风险1：应收票据与营业收入的比值增幅交大。若应收账款下降，应收票据上升，说明销售政策变严格；若本没有应收账款，而应收票据同比上升，说明销售遇到问题</div>
+            <div>风险2：只有银行承兑票据变为出现商业票据，说明销售遇到困难</div>
         </div>
 
     </div>
@@ -117,6 +132,78 @@
         ]
 };
     cash_graph.setOption(option2);
+
+    var total_liab = Object.values(dictData["total_liab"]);
+    var total_cur_liab = Object.values(dictData["total_cur_liab"]);
+    var int_payable = Object.values(dictData["int_payable"]);
+    var debt = echarts.init(document.getElementById("debt"));
+    var option3 = {
+        legend: {
+            data:["货币资金","总负债","流动负债", "应付利息"]
+        },
+        xAxis: {
+            type: 'category',
+            data: endDate
+
+        },
+        yAxis: {},
+        series: [
+                {
+                type: 'bar',
+                name: '货币资金',
+                data: money_cap,
+
+            },
+            {
+                type: 'bar',
+                name: '总负债',
+                data: total_liab,
+
+            },
+            {
+                type: 'bar',
+                name: '流动负债',
+                data: total_cur_liab
+            },
+            {
+                type: 'bar',
+                name: '应付利息',
+                data: int_payable
+            }
+
+        ]
+};
+    debt.setOption(option3);
+
+    var notes_receiv = Object.values(dictData["notes_receiv"]);
+    var accounts_receiv = Object.values(dictData["accounts_receiv"]);
+    var receiv = echarts.init(document.getElementById("receiv"));
+    var option4 = {
+        legend: {
+            data:["应收票据","应收款项"]
+        },
+        xAxis: {
+            type: 'category',
+            data: endDate
+
+        },
+        yAxis: {},
+        series: [
+                {
+                type: 'bar',
+                name: '应收票据',
+                data: notes_receiv,
+
+            },
+            {
+                type: 'bar',
+                name: '应收款项',
+                data: accounts_receiv,
+
+            }
+        ]
+};
+    receiv.setOption(option4);
 
     </script>
 {% endblock %}

@@ -8,8 +8,8 @@
 @Desc：每日收盘数据写回excel
 '''
 
-from utils.stock_base import StockBasic
-from utils.MyTools import MyTools
+from web.utils.stock_base import StockBasic
+from web.utils.MyTools import MyTools
 import pandas as pd
 
 class DailyToExcel(StockBasic):

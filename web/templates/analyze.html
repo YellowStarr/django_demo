@@ -1,0 +1,155 @@
+{% extends 'basic.html' %}
+{% block analyze %}
+    <p>综合分析</p>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">应收账款与营业收入</div>
+            <div class="panel-body">
+                <div id="reciv_and_revenue" style="widith:800px;height: 400px"></div>
+                <div style="margin-left: 100px; color: red;">风险：应收账款占营业收入比例越低越好，高于25%时，应该过滤</div>
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">存货与营业收入</div>
+            <div class="panel-body">
+                <div id="inven_and_revenue" style="widith:800px;height: 400px"></div>
+                <div style="margin-left: 100px; color: red;">风险1:存货与营业收入的比值增幅较大</div>
+                <div style="margin-left: 100px; color: red;">风险2:存货没有计提跌价准备</div>
+                <div style="margin-left: 100px; color: red;">风险3:毛利率和存货金额都有明显提高</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stock_js %}
+
+    <script type="text/javascript">
+    var balanceData = JSON.parse(JSON.stringify({{ balance_index|safe }}));
+    var incomeData = JSON.parse(JSON.stringify({{ income|safe }}));
+    var acc_reciv = [];
+    var reven = [];
+    var inv = [];
+    var endDate = Object.values(balanceData["end_date"]);
+    var accounts_receiv = Object.values(balanceData["accounts_receiv"]);
+    var revenue = Object.values(incomeData["revenue"]);
+    var inven = Object.values(balanceData["inventories"]);
+    for (var j=0;j<revenue.length;j++){
+        acc_reciv.push(Math.floor(accounts_receiv[j]/10000000));
+        reven.push(Math.floor(revenue[j]/10000000));
+        inv.push(Math.floor(inven[j]/10000000));
+    }
+    var max1 = Math.max.apply(null, reven);
+    var per = [];
+    for (var i=0; i<revenue.length;i++){
+        per.push(accounts_receiv[i]/revenue[i]*100);
+    }
+
+    var receiv = echarts.init(document.getElementById("reciv_and_revenue"));
+    var option1 = {
+        legend: {
+            data:["应收账款","营业收入", "占比"]
+        },
+        xAxis: {
+            type: 'category',
+            data: endDate
+
+        },
+        yAxis: [
+            {
+                type: "value",
+                name: "金额（千万）",
+                min: 0,
+                max: max1,
+                interval: max1/10,
+
+
+            },
+            {
+                type: "value",
+                name: "占比",
+                min: 0,
+                max: 50,
+                interval: 5,
+                axisLabel: {
+                    formatter: '{value} %'
+                }
+            }
+        ],
+        series: [
+            {
+                type: 'bar',
+                name: '应收账款',
+                data: acc_reciv,
+
+            },
+            {
+                type: 'bar',
+                name: '营业收入',
+                data: reven,
+
+            },
+            {
+                type: 'line',
+                name: '占比',
+                data: per,
+                yAxisIndex: 1
+            }
+
+        ]
+};
+    receiv.setOption(option1);
+
+    var per_inv = [];
+    for (var k=0; k<revenue.length;k++){
+        per_inv.push(inven[k]/revenue[k]*100);
+    }
+    var inventories = echarts.init(document.getElementById("inven_and_revenue"));
+    var option2 = {
+        legend: {
+            data:["存货","营业收入", "占比"]
+        },
+        xAxis: {
+            type: 'category',
+            data: endDate
+
+        },
+        yAxis: [
+            {
+                type: "value",
+                name: "金额（千万）",
+
+            },
+            {
+                type: "value",
+                name: "占比",
+                axisLabel: {
+                    formatter: '{value} %'
+                }
+            }
+        ],
+        series: [
+            {
+                type: 'bar',
+                name: '存货',
+                data: inv,
+
+            },
+            {
+                type: 'bar',
+                name: '营业收入',
+                data: reven,
+
+            },
+            {
+                type: 'line',
+                name: '占比',
+                data: per_inv,
+                yAxisIndex: 1
+            }
+
+        ]
+};
+    inventories.setOption(option2);
+
+    </script>
+{% endblock %}

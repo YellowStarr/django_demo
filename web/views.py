@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 import pandas as pd
 import json
+from web.utils.financeFocus import FinanceFocus
 
 # Create your views here.
 
@@ -124,9 +125,6 @@ def finance_balance_list(request):
 
     return render(request, "balance.html", {"balance": page_obj})
 
-def show_graph(request):
-    request.GET.get()
-
 def stock_info(request):
     """
     股票基本信息
@@ -157,12 +155,12 @@ def stock_info(request):
 
 def balance_index(request):
     """
-
+     资产负债表几个核心数据展示
     :param request:
     :return:
     """
     ts_code = request.GET.get('code')
-    queryset = models.Balance.objects.filter(ts_code=ts_code, update_flag='1')
+    queryset = models.Balance.objects.filter(ts_code=ts_code)
     result = list(queryset.values())
     print(result)
     df = pd.DataFrame(result)
@@ -174,7 +172,6 @@ def balance_index(request):
     # js中没有None类型，通过json模块 将None转变为null
     json_data = json.dumps(data)
 
-
     '''
     result = list(queryset.values())
     df = pd.DataFrame(result)
@@ -183,4 +180,73 @@ def balance_index(request):
     return render(request, "balance_index.html", {"balance_index": json_data})
     # return render(request, "balance_index.html")
 
+def analyze(request):
+    """
+     跨表数据分析
+    :param request:
+    :return:
+    """
+    ts_code = request.GET.get('code')
+    queryset1 = models.Balance.objects.filter(ts_code=ts_code, update_flag='1')
+    queryset2 = models.Income.objects.filter(ts_code=ts_code)
+    result1 = list(queryset1.values())
+    result2 = list(queryset2.values())
+    print(result2)
+
+    df = pd.DataFrame(result1)
+    df["end_date"] = df["end_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+    df["ann_date"] = df["ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+    df["f_ann_date"] = df["f_ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+    data = df.to_dict()
+    # js中没有None类型，通过json模块 将None转变为null
+    json_data = json.dumps(data)
+
+    df2 = pd.DataFrame(result2)
+    print(result2)
+    df2["end_date"] = df2["end_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+    df2["ann_date"] = df2["ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+    df2["f_ann_date"] = df2["f_ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+    # df["f_ann_date"] = df["f_ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+    data2 = df2.to_dict()
+    # js中没有None类型，通过json模块 将None转变为null
+    income_data = json.dumps(data2)
+
+    return render(request, "analyze.html", {"balance_index": json_data,"income":income_data})
+    # return render(request, "balance_index.html")
+
+def income_t(request):
+    """
+     利润表图表
+    :param request:
+    :return:
+    """
+    ts_code = request.GET.get('code')
+    queryset1 = models.Income.objects.filter(ts_code=ts_code)
+    result1 = list(queryset1.values())
+
+    df = pd.DataFrame(result1)
+    df["end_date"] = df["end_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+    df["ann_date"] = df["ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+    df["f_ann_date"] = df["f_ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+
+    df["n_income"] = df["n_income"]/10000000
+    df["total_revenue"] = df["total_revenue"]/10000000
+    df["total_cogs"] = df["total_cogs"]/10000000
+    df["revenue"] = df["revenue"]/10000000
+    gross_profit = df["total_revenue"]-df["total_cogs"]
+    total_revenue = df["total_revenue"]
+    n_income = df["n_income"]
+    df["gross_profit"] = gross_profit
+
+    df["n_rate"] = n_income/total_revenue*100
+    df["gross_rate"] = gross_profit/total_revenue*100
+
+    data = df.to_dict()
+
+
+    # js中没有None类型，通过json模块 将None转变为null
+    income_data = json.dumps(data)
+
+    return render(request, "income_t.html", {"income":income_data})
+    # return render(request, "balance_index.html")
 

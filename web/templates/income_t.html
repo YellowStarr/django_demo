@@ -1,0 +1,110 @@
+{% extends 'basic.html' %}
+{% block income_t %}
+    <p>利润表</p>
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">毛利和净利</div>
+            <div class="panel-body">
+                <div id="net_and_gross" style="widith:800px;height: 400px"></div>
+                <div style="margin-left: 100px; color: red;">风险：应收账款占营业收入比例越低越好，高于25%时，应该过滤</div>
+            </div>
+        </div>
+    <div class="panel panel-default">
+            <div class="panel-heading">毛利率和净利率</div>
+            <div class="panel-body">
+                <div id="net_and_gross_rate" style="widith:800px;height: 400px"></div>
+                <div style="margin-left: 100px; color: red;"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stock_js %}
+
+    <script type="text/javascript">
+    var incomeData = JSON.parse(JSON.stringify({{ income|safe }}));
+
+    var endDate = Object.values(incomeData["end_date"]);
+    var net_income = Object.values(incomeData["n_income"]);
+    var total_revenue = Object.values(incomeData["total_revenue"]);
+    var total_cogs = Object.values(incomeData["total_cogs"]);
+    var gross_profit= Object.values(incomeData["gross_profit"]);
+    var revenue = Object.values(incomeData["revenue"]);
+
+    var net_and_gross = echarts.init(document.getElementById("net_and_gross"));
+    var option1 = {
+        legend: {
+            data:["净利润","营业收入", "毛利"]
+        },
+        xAxis: {
+            type: 'category',
+            data: endDate
+
+        },
+        yAxis: [
+            {
+                type: "value",
+                name: "金额（千万）",
+            }
+        ],
+        series: [
+            {
+                type: 'bar',
+                name: '净利润',
+                data: net_income
+            },
+            {
+                type: 'bar',
+                name: '营业收入',
+                data: revenue
+
+            },
+            {
+                type: 'bar',
+                name: '毛利',
+                data: gross_profit
+            }
+
+        ]
+};
+    net_and_gross.setOption(option1);
+
+    var n_rate = Object.values(incomeData["n_rate"]);
+    var gross_rate = Object.values(incomeData["gross_rate"]);
+    var net_and_gross_rate = echarts.init(document.getElementById("net_and_gross_rate"));
+    var option2 = {
+        legend: {
+            data:["净利率", "毛利率"]
+        },
+        xAxis: {
+            type: 'category',
+            data: endDate
+
+        },
+        yAxis: [
+            {
+                type: "value",
+                axisLabel: {
+                    formatter: '{value} %'
+                }
+            }
+        ],
+        series: [
+            {
+                type: 'line',
+                name: '净利率',
+                data: n_rate
+            },
+            {
+                type: 'line',
+                name: '毛利率',
+                data: gross_rate
+
+            },
+
+
+        ]
+};
+    net_and_gross_rate.setOption(option2);
+    </script>
+{% endblock %}

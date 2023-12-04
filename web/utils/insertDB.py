@@ -5,6 +5,7 @@
 @File :insertDB.py
 @Author: Azure Qiu
 @Date: 2023/6/8 14:55
+@Desc: 股票基本信息写数据库，股票名，代码，上市时间，行业，上市板块，退市时间
 '''
 
 import pymysql

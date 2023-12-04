@@ -5,6 +5,7 @@
 @File :MyTools.py
 @Author: Azure Qiu
 @Date: 2023/4/18 19:59
+@Desc:工具类
 '''
 
 # from statsmodels.api import OLS
