@@ -225,16 +225,20 @@ def income_t(request):
     result1 = list(queryset1.values())
 
     df = pd.DataFrame(result1)
-    df["end_date"] = df["end_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
-    df["ann_date"] = df["ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
-    df["f_ann_date"] = df["f_ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+    try:
+        df["end_date"] = df["end_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+        df["ann_date"] = df["ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+        df["f_ann_date"] = df["f_ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
 
-    df["n_income"] = df["n_income"]/10000000
-    df["total_revenue"] = df["total_revenue"]/10000000
-    df["total_cogs"] = df["total_cogs"]/10000000
-    df["revenue"] = df["revenue"]/10000000
-    gross_profit = df["total_revenue"]-df["total_cogs"]
-    total_revenue = df["total_revenue"]
+        df["n_income"] = df["n_income"] / 10000000
+        df["total_revenue"] = df["total_revenue"] / 10000000
+        df["total_cogs"] = df["total_cogs"] / 10000000
+        df["revenue"] = df["revenue"] / 10000000
+        gross_profit = df["total_revenue"]-df["total_cogs"]
+        total_revenue = df["total_revenue"]
+    except Exception:
+        print(df)
+        return redirect("/stock_info/")
     n_income = df["n_income"]
     df["gross_profit"] = gross_profit
 
