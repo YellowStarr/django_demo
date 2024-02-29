@@ -1,11 +1,11 @@
 {% extends 'basic.html' %}
-{% block daily %}
+{% block price %}
 
     <div>
         <div style="margin:10px 0px;">
             <a href="/add/daily/" class="btn btn-primary">添加每日股票数据</a>
             <a href="/add/history/daily/" class="btn btn-primary">添加历史股票数据</a>
-            <a href="/add/batch/daily/" class="btn btn-primary">批量添加股票数据</a>
+{#            <a href="/add/batch/daily/" class="btn btn-primary">批量添加股票数据</a>#}
         </div>
         <table class="table table-bordered">
             <thead>
@@ -31,7 +31,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for stock in dailyset %}
+            {% for stock in priceset %}
                 <tr>
                     <td>{{ stock.name }}</td>
                     <td>{{ stock.ts_code }}</td>
@@ -59,20 +59,20 @@
     </div>
     <nav  aria-label="Page navigation" >
         <ul class="pagination">
-            {% if dailyset.has_previous %}
+            {% if priceset.has_previous %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ dailyset.previous_page_number }}">上一页</a>
+                    <a class="page-link" href="?page={{ priceset.previous_page_number }}">上一页</a>
                 </li>
             {% endif %}
             <li class="page-item">
-                <a class="page-link" class="current-page"  aria-current="page" >{{ dailyset.number }}</a>
+                <a class="page-link" class="current-page"  aria-current="page" >{{ priceset.number }}</a>
             </li>
             <li class="page-item">
-                <a class="page-link" class="total-pages">{{ dailyset.paginator.num_pages }}</a>
+                <a class="page-link" class="total-pages">{{ priceset.paginator.num_pages }}</a>
             </li>
-            {% if dailyset.has_next %}
+            {% if priceset.has_next %}
                 <li class="page-item">
-                    <a class="page-link" href="?page={{ dailyset.next_page_number }}">下一页</a>
+                    <a class="page-link" href="?page={{ priceset.next_page_number }}">下一页</a>
                 </li>
             {% endif %}
         </ul>

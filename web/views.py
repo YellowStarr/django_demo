@@ -3,15 +3,13 @@ import pandas as pd
 import json
 from web.utils.financeFocus import FinanceFocus
 
-# Create your views here.
-
-from django.shortcuts import HttpResponse
 from web import models
 import tushare
 from web.utils.insertDB import PdToSql
 from django.core.paginator import Paginator
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
+from web.utils.stock_base import StockBasic
+from web.utils.MyTools import MyTools
+
 
 _TOKEN = "da4c97957d6f4063991d86f1ccce4c43c6c0275d6b640e706ae9ff9d"
 
@@ -20,28 +18,15 @@ def _pro():
     return pro
 
 def show_pe(request):
-    # return HttpResponse("登录页面")
-    # stocklist = [{"ts_code": 111, "name":"九阳股份","TTM":24.59, "LYR": 22.53, "FORWARD":24.55, "netincome":5.21, "industry":"小家电",
-    #               "CGR": -8.38, "gross": 29.09, "amplitude": -7.02},
-    #              {"ts_code": 112, "name":"小熊电器","TTM":28.55, "LYR": 33.03, "FORWARD":19.33, "netincome":9.37, "industry":"小家电",
-    #               "CGR": 20.10, "gross": 36.45, "amplitude": 33.94},
-    #              {"ts_code": 112, "name":"三花智控","TTM":31.54, "LYR": 33.35, "FORWARD":35.69, "netincome":12.21, "industry":"小家电",
-    #               "CGR": 18.76, "gross": 26.08, "amplitude": 14.84},
-    #              {"ts_code": 112, "name":"长虹美菱","TTM":20.14, "LYR": 29.83, "FORWARD":14.85, "netincome":1.37, "industry":"小家电",
-    #               "CGR": 67.89, "gross": 13.71, "amplitude": 61.83},
-    #              {"ts_code": 112, "name":"海信家电","TTM":18.27, "LYR": 22.71, "FORWARD":13.24, "netincome":4.14, "industry":"小家电",
-    #               "CGR": 20.69, "gross": 20.69, "amplitude": 63.56}
-    #              ]
 
     pe_queryset = models.PeCompare.objects.all()
-    # for obj in pe_queryset:
-
     return render(request, "show_pe.html", {"stock": pe_queryset})
-    # return redirect("www.baidu.com")
+
 
 def get_daily(request):
-    queryset = models.stock_daily.objects.all().order_by("-trade_date")
-
+    queryset = models.stock_daily.objects.filter(trade_date__gt='2023-01-01').order_by("-trade_date")
+    # s = models.stock_info.objects.filter(ts_code__in=queryset).values('name')
+    # print(s)
     # 创建分页器
     paginator = Paginator(queryset, 15)
 
@@ -78,6 +63,66 @@ def add_daily(request):
     # print(stock_basics["name"])
     models.stock_daily.objects.create(**data)
 
+    return redirect("/daily/")
+
+def get_price(request, ts_code):
+    """
+    :param request:
+    :return:
+    """
+    queryset = models.stock_daily.objects.filter(ts_code=ts_code).order_by("-trade_date")
+    # 创建分页器
+    paginator = Paginator(queryset, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, "price.html", {"priceset": page_obj})
+
+def add_batch_daily(request):
+    """
+    批量添加历史每日股票数据
+    :param request:
+    :return:
+    """
+    if request.method == "GET":
+        return render(request, "add_batch_daily.html")
+    # 获取传入的开始和结束日期
+    start_date = request.POST.get("start_date")
+    end_date = request.POST.get("end_date")
+
+    pro = _pro()
+    # 获取筛选后的全部股票代码
+    stock_codes = StockBasic().get_stock_code()
+    all_stocks_list = stock_codes["ts_code"].tolist()
+
+    for code in range(len(all_stocks_list)):
+        ts_code = all_stocks_list[code]
+        # 如果没传结束日期，就获取当前日期
+        if not end_date:
+            end_date = MyTools.get_today()
+        # 股票每日价格数据
+        code_df = StockBasic().pro_bar(ts_code,s_date=start_date, e_date=end_date)
+        print(code_df)
+        # 解决 noneType
+        try:
+            code_df["trade_date"] = pd.to_datetime(code_df["trade_date"])
+            code_df["trade_date"] = code_df["trade_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+
+            # 股票每日基本数据
+            daily_basics = pro.daily_basic(ts_code=ts_code,start_date=start_date, end_date=end_date)
+
+            for index, row in code_df.iterrows():
+                data = {"ts_code": row["ts_code"],"trade_date":row["trade_date"],"pre_close":row["pre_close"],
+                        "open": row["open"],"close": row["close"],"high":row["high"], "low":row["low"],
+                        "change":row["change"], "pct_chg":row["pct_chg"], "vol":row["vol"], "amount":row["amount"],"turnover_rate": daily_basics["turnover_rate"].iloc[index], "PE_TTM":daily_basics["pe_ttm"].iloc[index], "PB":daily_basics["pb"].iloc[index], "float_share":daily_basics["float_share"].iloc[index],
+                        "circ_mv":daily_basics["circ_mv"].iloc[index],"total_share":daily_basics["total_share"].iloc[index], "total_mv":daily_basics["total_mv"].iloc[index]
+                        }
+
+                print(data)
+                # models.stock_daily.objects.update_or_create(trade_date=data['trade_date'], ts_code=data['ts_code'],defaults=data)
+                models.stock_daily.objects.create(**data)
+        except Exception as e:
+            continue
+            print(e)
     return redirect("/daily/")
 
 def add_history_daily(request):
@@ -162,23 +207,33 @@ def balance_index(request):
     ts_code = request.GET.get('code')
     queryset = models.Balance.objects.filter(ts_code=ts_code)
     result = list(queryset.values())
-    print(result)
+
     df = pd.DataFrame(result)
+    df = df.sort_values(by="end_date", ascending=False)
+    df = df.drop_duplicates(subset=["end_date"])
+    df = df.reset_index(drop=True)
+
     df["end_date"] = df["end_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
     df["ann_date"] = df["ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
     df["f_ann_date"] = df["f_ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
-    # df["f_ann_date"] = df["f_ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+    df["fix_assets_total"] = df["fix_assets_total"]/1000000
+    df["total_cur_assets"] = df["total_cur_assets"]/1000000
+    df["total_assets"] = df["total_assets"]/1000000
+    df["money_cap"] = df["money_cap"]/1000000
+    df["oth_cur_assets"] = df["oth_cur_assets"]/1000000
+    df["prepayment"] = df["prepayment"]/1000000
+    df["int_receiv"] = df["int_receiv"]/1000000
+    df["inventories"] = df["inventories"]/1000000
+    df["total_liab"] = df["total_liab"]/1000000
+    df["total_cur_liab"] = df["total_cur_liab"]/1000000
+    df["int_payable"] = df["int_payable"]/1000000
+    df["notes_receiv"] = df["notes_receiv"]/1000000
+    df["accounts_receiv"] = df["accounts_receiv"]/1000000
+
     data = df.to_dict()
     # js中没有None类型，通过json模块 将None转变为null
     json_data = json.dumps(data)
-
-    '''
-    result = list(queryset.values())
-    df = pd.DataFrame(result)
-    month = df["end_date"]
-    print(month)'''
     return render(request, "balance_index.html", {"balance_index": json_data})
-    # return render(request, "balance_index.html")
 
 def analyze(request):
     """
@@ -187,13 +242,16 @@ def analyze(request):
     :return:
     """
     ts_code = request.GET.get('code')
-    queryset1 = models.Balance.objects.filter(ts_code=ts_code, update_flag='1')
+    queryset1 = models.Balance.objects.filter(ts_code=ts_code)
     queryset2 = models.Income.objects.filter(ts_code=ts_code)
     result1 = list(queryset1.values())
     result2 = list(queryset2.values())
-    print(result2)
+    # print(result2)
 
     df = pd.DataFrame(result1)
+    df = df.sort_values(by="end_date", ascending=False)
+    df = df.drop_duplicates(subset=["end_date"])
+    df = df.reset_index(drop=True)
     df["end_date"] = df["end_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
     df["ann_date"] = df["ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
     df["f_ann_date"] = df["f_ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
@@ -201,8 +259,12 @@ def analyze(request):
     # js中没有None类型，通过json模块 将None转变为null
     json_data = json.dumps(data)
 
+    # 重新按时间排序并去除重复数据
     df2 = pd.DataFrame(result2)
-    print(result2)
+    df2 = df2.sort_values(by="end_date", ascending=False)
+    df2 = df2.drop_duplicates(subset=["end_date"])
+    df2 = df2.reset_index(drop=True)
+    # print(result2)
     df2["end_date"] = df2["end_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
     df2["ann_date"] = df2["ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
     df2["f_ann_date"] = df2["f_ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
@@ -225,6 +287,10 @@ def income_t(request):
     result1 = list(queryset1.values())
 
     df = pd.DataFrame(result1)
+    df = df.sort_values(by="end_date", ascending=False)
+    df = df.drop_duplicates(subset=["end_date"])
+    df = df.reset_index(drop=True)
+
     try:
         df["end_date"] = df["end_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
         df["ann_date"] = df["ann_date"].apply(lambda x: x.strftime("%Y-%m-%d"))

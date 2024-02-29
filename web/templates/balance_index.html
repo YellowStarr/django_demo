@@ -41,6 +41,7 @@
     var dictData = JSON.parse(JSON.stringify({{ balance_index|safe }}));
 {#    console.log(dictData["undistr_porfit"]);#}
     var endDate = Object.values(dictData["end_date"]);
+    console.log(endDate);
     var fix_assets_total = Object.values(dictData["fix_assets_total"]);
     var total_cur_assets = Object.values(dictData["total_cur_assets"]);
     var total_assets = Object.values(dictData["total_assets"]);
@@ -54,7 +55,10 @@
             data: endDate
 
         },
-        yAxis: {},
+        yAxis: {
+            type: "value",
+            name: "金额（百万）"
+        },
         series: [
             {
                 type: 'bar',
@@ -94,7 +98,10 @@
             data: endDate
 
         },
-        yAxis: {},
+        yAxis: {
+            type: "value",
+            name: "金额（百万）"
+        },
         series: [
             {
                 type: 'bar',
@@ -146,7 +153,10 @@
             data: endDate
 
         },
-        yAxis: {},
+        yAxis: {
+            type: "value",
+            name: "金额（百万）"
+        },
         series: [
                 {
                 type: 'bar',
@@ -187,7 +197,10 @@
             data: endDate
 
         },
-        yAxis: {},
+        yAxis: {
+            type: "value",
+            name: "金额（百万）"
+        },
         series: [
                 {
                 type: 'bar',

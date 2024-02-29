@@ -33,6 +33,7 @@ class DailyToExcel(StockBasic):
             if not code_df.empty:
                    code_df.to_csv(file_path, mode='a', header=False)
 
+
     def compositIndex(self, code="000001.SH", trade_day=''):
         file_path = self.root_dir + code + "_daily.csv"
         if trade_day != '':

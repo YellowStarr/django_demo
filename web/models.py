@@ -381,6 +381,7 @@ class stock_daily(models.Model):
     """
     股票每日价格，
     """
+    # name =  models.CharField(verbose_name="股票名称", max_length=32)
     ts_code = models.CharField(verbose_name="代码", max_length=16)
     trade_date = models.DateField(verbose_name="交易日期", null=True,blank=True)
     open = models.FloatField(verbose_name="当日开盘价",null=True,blank=True)
@@ -400,7 +401,6 @@ class stock_daily(models.Model):
     total_share = models.FloatField(verbose_name="总股本 （万股）",null=True,blank=True)
     total_mv = models.FloatField(verbose_name="总市值 （万元）",null=True,blank=True)
 
-
 class stock_info(models.Model):
     """
     股票的基本信息
@@ -411,5 +411,6 @@ class stock_info(models.Model):
     industry = models.CharField(verbose_name="所属行业", null=True, blank=True, max_length=1000)
     market = models.CharField(verbose_name="市场类型（主板/创业板/科创板/CDR）", null=True, blank=True, max_length=1000)
     delist_date = models.DateField(verbose_name="退市日期", null=True, blank=True)
+
 
 

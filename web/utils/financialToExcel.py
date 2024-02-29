@@ -114,7 +114,7 @@ if __name__ == "__main__":
     # filePath = "E:\\WorkPlace\\stockProject\\finance\\002594.SZ.xlsx"
     # MyTools.writeToExcel(s,filePath,"balance")
     # print(s)
-    d.add_Finance_Data("20000101", "20231231")
+    d.add_Finance_Data("20230301", "20231231")
 
 
 

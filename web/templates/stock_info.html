@@ -15,8 +15,15 @@
                     <div class="col-md-3">
                         <button type="submit" id="search" name="search" class="btn btn-primary">查 询</button>
                     </div>
+
                 </div>
         </form>
+        <div class="col-md-9" style="margin-bottom: 10px;">
+            <a href="/update_income" id="update_income" name="update_income" class="btn btn-primary">更新利润表</a>
+            <a href="/update_balance" id="update_balance" name="update_balance" class="btn btn-primary">更新负载表</a>
+            <a href="/update_cashflow" id="update_cashflow" name="update_cashflow" class="btn btn-primary">更新现金表</a>
+        </div>
+
 
     <div>
         <table class="table table-bordered">
@@ -42,6 +49,7 @@
 
                     <td>{{ stock.delist_date }}</td>
                     <td>
+                        <a href="/price/{{ stock.ts_code }}" >股价</a>
                         <a href="/balance_index/?code={{ stock.ts_code }}" >负债表</a>
                         <a href="/income_t/?code={{ stock.ts_code }}" >利润表</a>
                         <a href="" >现金流量表</a>

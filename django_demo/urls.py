@@ -22,7 +22,9 @@ from web import views
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('show_pe/', views.show_pe),
+    path('add/batch/daily/', views.add_batch_daily),
     path('daily/', views.get_daily),
+    path('price/<str:ts_code>/', views.get_price),
     path('add/daily/', views.add_daily),
     path('add/history/daily/', views.add_history_daily),
     path('balance/', views.finance_balance_list),
