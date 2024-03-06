@@ -1,8 +1,8 @@
 from django.db import models
 
 # Create your models here.
-'''class PeCompare(models.Model):
-    ts_code = models.CharField(verbose_name="代码", max_length=16)
+class PeCompare(models.Model):
+    ts_code = models.CharField(verbose_name="代码", max_length=16, db_index=True)
     name = models.CharField(verbose_name="股票名称", max_length=32)
     industry = models.CharField(verbose_name="行业", max_length=32)
     TTM = models.FloatField(verbose_name="PE TTM")
@@ -11,7 +11,7 @@ from django.db import models
     netincome = models.FloatField(verbose_name="净利率")
     gross = models.FloatField(verbose_name="毛利率")
     CGR = models.FloatField(verbose_name="过去五年净利润复合增长率")
-    amplitude = models.FloatField(verbose_name="年初至今涨辐")'''
+    amplitude = models.FloatField(verbose_name="年初至今涨辐")
 
 class Balance(models.Model):
     """
@@ -175,6 +175,10 @@ class Balance(models.Model):
     oth_rcv_total = models.FloatField(verbose_name="其他应收款(合计)（元）",null=True,blank=True)
     fix_assets_total = models.FloatField(verbose_name="固定资产(合计)(元)",null=True,blank=True)
     update_flag = models.CharField(verbose_name="更新标识", max_length=2)
+    class Meta:
+        indexes = [
+            models.Index(fields=['ts_code','end_date'])
+        ]
 
 class Income(models.Model):
     """
@@ -274,6 +278,10 @@ class Income(models.Model):
     continued_net_profit = models.FloatField(verbose_name="持续经营净利润",null=True,blank=True)
     end_net_profit = models.FloatField(verbose_name="终止经营净利润",null=True,blank=True)
     update_flag = models.CharField(verbose_name="更新标识",max_length=2,null=True,blank=True)
+    class Meta:
+        indexes = [
+            models.Index(fields=['ts_code','end_date'])
+        ]
 
 class Cashflow(models.Model):
     """
@@ -376,6 +384,21 @@ class Cashflow(models.Model):
     end_bal_cash_equ = models.FloatField(verbose_name="加:现金等价物的期末余额",null=True,blank=True)
     beg_bal_cash_equ = models.FloatField(verbose_name="减:现金等价物的期初余额",null=True,blank=True)
     update_flag = models.FloatField(verbose_name="更新标志(1最新）",null=True,blank=True)
+    class Meta:
+        indexes = [
+            models.Index(fields=['ts_code','end_date'])
+        ]
+
+class stock_info(models.Model):
+    """
+    股票的基本信息
+    """
+    ts_code = models.CharField(verbose_name="代码", max_length=16, db_index=True)
+    name = models.CharField(verbose_name="股票名称", max_length=32)
+    list_date = models.DateField(verbose_name="上市日期", null=True, blank=True)
+    industry = models.CharField(verbose_name="所属行业", null=True, blank=True, max_length=1000)
+    market = models.CharField(verbose_name="市场类型（主板/创业板/科创板/CDR）", null=True, blank=True, max_length=1000)
+    delist_date = models.DateField(verbose_name="退市日期", null=True, blank=True)
 
 class stock_daily(models.Model):
     """
@@ -400,17 +423,110 @@ class stock_daily(models.Model):
     circ_mv = models.FloatField(verbose_name="流通市值（万元）",null=True,blank=True)
     total_share = models.FloatField(verbose_name="总股本 （万股）",null=True,blank=True)
     total_mv = models.FloatField(verbose_name="总市值 （万元）",null=True,blank=True)
+    # name = models.ForeignKey(stock_info, on_delete=models.CASCADE)
+    class Meta:
+        indexes = [
+            models.Index(fields=['ts_code','trade_date'])
+        ]
 
-class stock_info(models.Model):
-    """
-    股票的基本信息
-    """
-    ts_code = models.CharField(verbose_name="代码", max_length=16)
-    name = models.CharField(verbose_name="股票名称", max_length=32)
+class index_info(models.Model):
+    """国内主要指数"""
+    ts_code = models.CharField(verbose_name="代码", max_length=16, db_index=True)
+    name = models.CharField(verbose_name="指数名称", max_length=256)
+    fullname = models.CharField(verbose_name="指数全称", max_length=256,null=True, blank=True)
+    publisher = models.CharField(verbose_name="发布方", max_length=256,null=True, blank=True)
+    index_type = models.CharField(verbose_name="指数风格", max_length=256,null=True, blank=True)
+    category = models.CharField(verbose_name="指数类别", max_length=256,null=True, blank=True)
+    base_date = models.CharField(verbose_name="基期", max_length=32,null=True, blank=True)
+    base_point = models.FloatField(verbose_name="基点", null=True, blank=True)
     list_date = models.DateField(verbose_name="上市日期", null=True, blank=True)
-    industry = models.CharField(verbose_name="所属行业", null=True, blank=True, max_length=1000)
+    weight_rule = models.CharField(verbose_name="加权方式", null=True, blank=True, max_length=1000)
+    desc = models.CharField(verbose_name="描述", null=True, blank=True, max_length=1000)
     market = models.CharField(verbose_name="市场类型（主板/创业板/科创板/CDR）", null=True, blank=True, max_length=1000)
+    exp_date = models.DateField(verbose_name="终止日期", null=True, blank=True)
+
+class index_daily(models.Model):
+    """指数每日基础信息"""
+    ts_code = models.CharField(verbose_name="代码", max_length=16)
+    trade_date = models.DateField(verbose_name="交易日期", null=True,blank=True)
+    close = models.FloatField(verbose_name="换手率（%）",null=True,blank=True)
+    open = models.FloatField(verbose_name="换手率(基于自由流通股本)",null=True,blank=True)
+    high = models.FloatField(verbose_name="市盈率",null=True,blank=True)
+    low = models.FloatField(verbose_name="PE_TTM",null=True,blank=True)
+    pre_close = models.FloatField(verbose_name="PB",null=True,blank=True)
+    change = models.FloatField(verbose_name="流通股本(万股)",null=True,blank=True)
+    pct_chg = models.FloatField(verbose_name="流通市值（万元）",null=True,blank=True)
+    vol = models.FloatField(verbose_name="总股本 （万股）",null=True,blank=True)
+    amount = models.FloatField(verbose_name="当日总市值（元）",null=True,blank=True)
+    # name = models.CharField(verbose_name="指数名称", max_length=256,null=True,blank=True)
+    class Meta:
+        indexes = [
+            models.Index(fields=['ts_code','trade_date'])
+        ]
+
+class index_dailybasic(models.Model):
+    """指数每日指标信息"""
+    ts_code = models.CharField(verbose_name="代码", max_length=16)
+    trade_date = models.DateField(verbose_name="交易日期", null=True,blank=True)
+    turnover_rate = models.FloatField(verbose_name="换手率（%）",null=True,blank=True)
+    turnover_rate_f = models.FloatField(verbose_name="换手率(基于自由流通股本)",null=True,blank=True)
+    PE = models.FloatField(verbose_name="市盈率",null=True,blank=True)
+    PE_TTM = models.FloatField(verbose_name="PE_TTM",null=True,blank=True)
+    PB = models.FloatField(verbose_name="PB",null=True,blank=True)
+    float_share = models.FloatField(verbose_name="流通股本(万股)",null=True,blank=True)
+    free_share = models.FloatField(verbose_name="流通股本(万股)",null=True,blank=True)
+    # circ_mv = models.FloatField(verbose_name="流通市值（万元）",null=True,blank=True)
+    total_share = models.FloatField(verbose_name="总股本 （万股）",null=True,blank=True)
+    total_mv = models.FloatField(verbose_name="当日总市值（元）",null=True,blank=True)
+    float_mv = models.FloatField(verbose_name="当日流通股本（股）",null=True,blank=True)
+    # name = models.ForeignKey(index_info, on_delete=models.CASCADE)
+    # name = models.CharField(verbose_name="指数名称", max_length=256,null=True,blank=True)
+    class Meta:
+        indexes = [
+            models.Index(fields=['ts_code','trade_date'])
+        ]
+
+class fund_info(models.Model):
+    ts_code = models.CharField(verbose_name="代码", max_length=16, db_index=True)
+    name = models.CharField(verbose_name="指数名称", max_length=32)
+    management = models.CharField(verbose_name="管理人", max_length=32)
+    custodian = models.CharField(verbose_name="托管人", max_length=32)
+    fund_type = models.CharField(verbose_name="托管人", max_length=16)
+    found_date = models.DateField(verbose_name="成立日期", null=True, blank=True)
+    due_date = models.DateField(verbose_name="到期日期", null=True, blank=True)
+    list_date = models.DateField(verbose_name="上市日期", null=True, blank=True)
+    issue_date = models.DateField(verbose_name="发行日期", null=True, blank=True)
+    issue_amount = models.FloatField(verbose_name="发行份额(亿)", null=True, blank=True)
+    m_fee = models.FloatField(verbose_name="管理费", null=True, blank=True)
+    c_fee = models.FloatField(verbose_name="托管费", null=True, blank=True)
+    duration_year = models.FloatField(verbose_name="存续期", null=True, blank=True)
+    p_value = models.FloatField(verbose_name="面值", null=True, blank=True)
+    min_amount = models.FloatField(verbose_name="起点金额(万元)", null=True, blank=True)
+    exp_return = models.FloatField(verbose_name="预期收益率", null=True, blank=True)
+    benchmark = models.CharField(verbose_name="业绩比较基准", null=True, blank=True, max_length=32)
+    status = models.CharField(verbose_name="存续状态D摘牌 I发行 L已上市", null=True, blank=True,max_length=32)
+    invest_type = models.CharField(verbose_name="投资风格", null=True, blank=True,max_length=32)
+    type = models.CharField(verbose_name="基金类型", null=True, blank=True,max_length=32)
+    trustee = models.CharField(verbose_name="受托人", null=True, blank=True,max_length=32)
+    purc_startdate = models.CharField(verbose_name="日常申购起始日", null=True, blank=True,max_length=32)
+    redm_startdate = models.CharField(verbose_name="日常赎回起始日", null=True, blank=True,max_length=32)
+    market = models.CharField(verbose_name="E场内O场外", null=True, blank=True,max_length=32)
     delist_date = models.DateField(verbose_name="退市日期", null=True, blank=True)
 
-
-
+class fund_daily(models.Model):
+    ts_code = models.CharField(verbose_name="代码", max_length=16)
+    trade_date = models.DateField(verbose_name="交易日期", null=True,blank=True)
+    open = models.FloatField(verbose_name="当日开盘价",null=True,blank=True)
+    close = models.FloatField(verbose_name="当日收盘价",null=True,blank=True)
+    high = models.FloatField(verbose_name="当日最高价",null=True,blank=True)
+    low = models.FloatField(verbose_name="当日最低价",null=True,blank=True)
+    change = models.FloatField(verbose_name="涨跌额",null=True,blank=True)
+    pct_chg = models.FloatField(verbose_name="涨跌幅",null=True,blank=True)
+    vol = models.FloatField(verbose_name="成交量（手）",null=True,blank=True)
+    amount = models.FloatField(verbose_name="成交额（千元）",null=True,blank=True)
+    # name = models.ForeignKey(fund_info, on_delete=models.CASCADE)
+    pre_close = models.FloatField(verbose_name="昨收价(前复权)",null=True,blank=True)
+    class Meta:
+        indexes = [
+            models.Index(fields=['ts_code','trade_date'])
+        ]

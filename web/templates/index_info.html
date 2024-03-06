@@ -1,0 +1,89 @@
+{% extends 'basic.html' %}
+{% block index_info %}
+    <div class="container mt-5">
+        <form method="post" class="form-group" style="margin-bottom: 20px;">
+        {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="text" name="sname" class="form-control" placeholder="输入股票名称">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="ts_code" class="form-control" placeholder="输入代码">
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-md-3">
+                        <button type="submit" id="search" name="search" class="btn btn-primary">查 询</button>
+                    </div>
+
+                </div>
+        </form>
+{#        <div class="col-md-9" style="margin-bottom: 10px;">#}
+{#            <a href="/update_income" id="update_income" name="update_income" class="btn btn-primary">更新利润表</a>#}
+{#            <a href="/update_balance" id="update_balance" name="update_balance" class="btn btn-primary">更新负载表</a>#}
+{#            <a href="/update_cashflow" id="update_cashflow" name="update_cashflow" class="btn btn-primary">更新现金表</a>#}
+{#        </div>#}
+
+
+    <div>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th scope="col">指数名称</th>
+                <th scope="col">指数代码</th>
+                <th scope="col">上市日期</th>
+                <th scope="col">所属行业</th>
+                <th scope="col">市场类型</th>
+                <th scope="col">退市日期</th>
+                <th scope="col">操作</th>
+            </tr>
+            </thead>
+            <tbody id="result">
+            {% for index in index_set %}
+                <tr>
+                    <td>{{ index.name }}</td>
+                    <td>{{ index.ts_code }}</td>
+                    <td>{{ index.list_date }}</td>
+                    <td>{{ index.industry }}</td>
+                    <td>{{ index.market }}</td>
+
+                    <td>{{ index.delist_date }}</td>
+                    <td>
+                        <a href="/index_daily/{{ index.ts_code }}" >走势图</a>
+{#                        <a href="/balance_index/?code={{ stock.ts_code }}" >负债表</a>#}
+{#                        <a href="/income_t/?code={{ stock.ts_code }}" >利润表</a>#}
+{#                        <a href="" >现金流量表</a>#}
+{#                        <a href="/analyze/?code={{ stock.ts_code }}" >分析</a>#}
+{#                        <a href="/show_pe/?code={{ stock.ts_code }}" >PE</a>#}
+                    </td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+    <nav  aria-label="Page navigation" >
+        <ul class="pagination">
+            {% if index_set.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ index_set.previous_page_number }}">上一页</a>
+                </li>
+            {% endif %}
+            <li class="page-item">
+                <a class="page-link" class="current-page"  aria-current="page" >{{ index_set.number }}</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" class="total-pages">{{ index_set.paginator.num_pages }}</a>
+            </li>
+            {% if index_set.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ index_set.next_page_number }}">下一页</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    </div>
+
+{% endblock %}
+

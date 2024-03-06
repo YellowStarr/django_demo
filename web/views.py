@@ -4,11 +4,13 @@ import json
 from web.utils.financeFocus import FinanceFocus
 
 from web import models
+from web.utils.myLog import MyLog
 import tushare
 from web.utils.insertDB import PdToSql
 from django.core.paginator import Paginator
 from web.utils.stock_base import StockBasic
 from web.utils.MyTools import MyTools
+import datetime
 
 
 _TOKEN = "da4c97957d6f4063991d86f1ccce4c43c6c0275d6b640e706ae9ff9d"
@@ -17,14 +19,26 @@ def _pro():
     pro = tushare.pro_api(_TOKEN)
     return pro
 
+
 def show_pe(request):
-
-    pe_queryset = models.PeCompare.objects.all()
-    return render(request, "show_pe.html", {"stock": pe_queryset})
-
+    """计算pe等数据"""
+    ts_code = request.GET.get('code')
+    pe_queryset = models.stock_daily.objects.filter(ts_code=ts_code, trade_date__gt='2014-01-01').order_by('trade_date')
+    result = list(pe_queryset.values())
+    df = pd.DataFrame(result)
+    df = df.sort_values(by="trade_date")
+    df = df.drop_duplicates(subset=["trade_date"])
+    df = df.reset_index(drop=True)
+    df["trade_date"] = df["trade_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+    data = df.to_dict()
+    json_data = json.dumps(data)
+    return render(request, "show_pe.html", {"stock": json_data})
 
 def get_daily(request):
-    queryset = models.stock_daily.objects.filter(trade_date__gt='2023-01-01').order_by("-trade_date")
+    today = datetime.date.today()
+
+    print(today)
+    queryset = models.stock_daily.objects.filter(trade_date='2024-02-28').order_by("id")
     # s = models.stock_info.objects.filter(ts_code__in=queryset).values('name')
     # print(s)
     # 创建分页器
@@ -121,8 +135,9 @@ def add_batch_daily(request):
                 # models.stock_daily.objects.update_or_create(trade_date=data['trade_date'], ts_code=data['ts_code'],defaults=data)
                 models.stock_daily.objects.create(**data)
         except Exception as e:
-            continue
             print(e)
+            continue
+
     return redirect("/daily/")
 
 def add_history_daily(request):
@@ -319,4 +334,96 @@ def income_t(request):
 
     return render(request, "income_t.html", {"income":income_data})
     # return render(request, "balance_index.html")
+
+def index_Info(request):
+    """国内主要指数"""
+    queryset = models.index_info.objects.all().order_by("id")
+    # 创建分页器
+    paginator = Paginator(queryset, 15)
+
+    page_number = request.GET.get('page')
+
+    page_obj = paginator.get_page(page_number)
+
+    # 查询逻辑
+    if request.method == 'POST':
+        sname = request.POST.get('sname')
+        ts_code = request.POST.get('ts_code')
+        if sname:
+            stock_set = models.index_info.objects.filter(name=sname)
+            return render(request, "index_info.html", {"index_set": stock_set})
+        elif ts_code:
+            stock_set = models.index_info.objects.filter(ts_code=ts_code)
+            return render(request, "index_info.html", {"index_set": stock_set})
+
+    return render(request, "index_info.html", {"index_set": page_obj})
+
+def index_daily(request, ts_code):
+    """指数走势
+       页面刷新时，会比较今日数据是否已更新，若未更新，则更新
+    """
+    MyLog.info("================每日指数走势==============")
+    print(MyTools.DEFAULT_DATE)
+    if request.method == 'GET':
+        query_set = models.index_daily.objects.filter(ts_code=ts_code, trade_date__gt=MyTools().DEFAULT_DATE)
+        basic_set = models.index_dailybasic.objects.filter(ts_code=ts_code, trade_date__gt=MyTools().DEFAULT_DATE)
+        if len(query_set) == 0:
+            # 初始化数据
+            MyLog.info("================初始化指数数据：%s=============="%ts_code)
+            PdToSql().update_index_daily(ts_code)
+            query_set = models.index_daily.objects.filter(ts_code=ts_code)
+        if len(basic_set) == 0:
+            MyLog.info("================初始化指数每日指标：%s=============="%ts_code)
+            PdToSql().update_index_dailybasic(ts_code)
+            query_set = models.index_dailybasic.objects.filter(ts_code=ts_code)
+    elif request.method == "POST":
+        # 查询逻辑
+        s_date_str = request.POST.get('start_date')
+        e_date_str = request.POST.get('end_date')
+        if s_date_str != '' or e_date_str != '':
+            s_date = MyTools.format_time(s_date_str)
+            e_date = MyTools.format_time(e_date_str)
+            query_set = models.index_daily.objects.filter(ts_code=ts_code, trade_date__gte=s_date, trade_date__lte=e_date)
+            basic_set = models.index_dailybasic.objects.filter(ts_code=ts_code, trade_date__gte=s_date, trade_date__lte=e_date)
+        else:
+            query_set = models.index_daily.objects.filter(ts_code=ts_code, trade_date__gt=MyTools().DEFAULT_DATE)
+            basic_set = models.index_dailybasic.objects.filter(ts_code=ts_code, trade_date__gt=MyTools().DEFAULT_DATE)
+    MyLog.info("================返回指数每日数据：%s=============="%ts_code)
+    index_data = _handle_set(query_set, ts_code)
+    dailybasic = _index_dailybasic(basic_set, ts_code)
+    return render(request,"index_daily.html", {"daily_set": index_data, "dailybasic":dailybasic})
+
+def _index_dailybasic(query_set,ts_code):
+    result1 = list(query_set.values())
+    df = pd.DataFrame(result1)
+    df = df.sort_values(by="trade_date")
+
+    df = df.reset_index(drop=True)
+    # PE百分位
+    df = MyTools.pecentPos(df, "PE_TTM", "PE_TTM", "PE_TTM")
+    try:
+        df["trade_date"] = df["trade_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+    except Exception:
+
+        return redirect("/index_info/")
+    data = df.to_dict()
+
+    # js中没有None类型，通过json模块 将None转变为null
+    index_data = json.dumps(data)
+    # print(index_data)
+    return index_data
+
+def _handle_set(query_set, ts_code):
+    result1 = list(query_set.values())
+
+    df = pd.DataFrame(result1)
+    df = df.sort_values(by="trade_date")
+    df = df.reset_index(drop=True)
+    try:
+        df["trade_date"] = df["trade_date"].apply(lambda x: x.strftime("%Y-%m-%d"))
+    except Exception:
+        return redirect("/index_info/")
+    data = df.to_dict()  # js中没有None类型，通过json模块 将None转变为null
+    index_data = json.dumps(data)
+    return index_data
 

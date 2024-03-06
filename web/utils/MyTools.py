@@ -13,12 +13,50 @@ import os, datetime
 from chinese_calendar import is_holiday
 from web.utils import operExcel
 import pandas as pd
-import  openpyxl
+from scipy.stats import stats
+import openpyxl
 
 
 class MyTools:
-    def __init__(self):
-        pass
+    @property
+    def DEFAULT_DATE(self):
+        return "2020-01-01"
+
+    @staticmethod
+    def pecentPos(df, col1, col2, col3):
+        """计算百分位"""
+        # PE百分位
+        df["median"] = df[col1].median()
+        df["20%"] = df[col2].quantile(0.2)
+        # 当日pe
+        pe = df[col3].iloc[-1]
+        percentile = stats.percentileofscore(df[col3], pe)
+        df["cur_percent"] = percentile
+        return df
+
+    @staticmethod
+    def format_time(t):
+        """输入的时间格式应该是20200101 或者 2020-01-01"""
+        try:
+            date = datetime.datetime.strptime(t, "%Y-%m-%d")
+
+            return date
+        except ValueError:
+            try:
+                date = datetime.datetime.strptime(t, "%Y%m%d")
+                date = date.strftime("%Y-%m-%d")
+                return date
+            except ValueError:
+                return "Invalid date format"
+
+    @staticmethod
+    def str_time(t):
+        """把datetime字符串化"""
+        try:
+            date = t.strftime("%Y%m%d")
+            return date
+        except ValueError:
+            return "Invalid date format"
 
     @staticmethod
     def get_today():
@@ -50,16 +88,16 @@ class MyTools:
             file_names = files
         for file in range(len(file_names)):
             filePath.append(roots + file_names[file])
-        return file_names,filePath
+        return file_names, filePath
 
     @staticmethod
     def writeToExcel(df, filepath, sheetname):
         isExist = os.path.exists(filepath)
         if isExist:
-            writer = pd.ExcelWriter(filepath, mode='a', engine='openpyxl',if_sheet_exists='replace')
+            writer = pd.ExcelWriter(filepath, mode='a', engine='openpyxl', if_sheet_exists='replace')
             # book = load_workbook(writer.path)
             try:
-                df.to_excel(writer,sheet_name=sheetname)
+                df.to_excel(writer, sheet_name=sheetname)
                 writer.save()
                 writer.close()
             except Exception as e:
@@ -73,12 +111,11 @@ class MyTools:
     def del_sheet(filepath, sheetname):
         wb = openpyxl.load_workbook(filepath)
         try:
-            ws =  wb[sheetname]
+            ws = wb[sheetname]
             wb.remove(ws)
             wb.save(filepath)
         except:
             print("sheets not exists")
-
 
     @staticmethod
     def std_Function(serise):
@@ -89,7 +126,7 @@ class MyTools:
         """
         std = serise.std()
         mean = serise.mean()
-        z = (serise-mean)/std
+        z = (serise - mean) / std
         return z
 
     @staticmethod

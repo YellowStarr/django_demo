@@ -1,50 +1,90 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>index</title>
-    <link rel="stylesheet" href="{% static 'bootstrap-5.3.0/css/bootstrap.min.css'%}">
-</head>
-<body>
-<div class="container">
-   <table class="table table-bordered">
-       <thead>
-       <tr>
-           <th>股票代码</th>
-           <th>股票</th>
-           <th>行业</th>
-           <th>PE(TTM)</th>
-           <th>PE(LYR)</th>
-           <th>PE(FORWARD)</th>
-           <th>过去五年净利润复合增长率</th>
-           <th>毛利率</th>
-           <th>净利率</th>
-           <th>年初至今涨辐</th>
-       </tr>
-       </thead>
-       <tbody>
-       {% for row in stock %}
-       <tr>
-           <td>{{ row.ts_code }}</td>
-           <td>{{ row.name }}</td>
-           <td>{{ row.industry }}</td>
-           <td>{{ row.TTM }}</td>
-           <td>{{ row.LYR }}</td>
-           <td>{{ row.FORWARD }}</td>
-           <td>{{ row.CGR }}</td>
-           <td>{{ row.gross }}</td>
-           <td>{{ row.netincome }}</td>
-           <td>{{ row.amplitude }}</td>
+{% extends 'basic.html' %}
+{% block showPE %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">近两年PE</div>
+            <div class="panel-body">
+                <div id="PE" style="widith:800px;height: 400px"></div>
+                <div style="margin-left: 100px; color: red;">风险：应收账款占营业收入比例越低越好，高于25%时，应该过滤</div>
+            </div>
+        </div>
+{#        <div class="panel panel-default">#}
+{#            <div class="panel-heading">存货与营业收入</div>#}
+{#            <div class="panel-body">#}
+{#                <div id="inven_and_revenue" style="widith:800px;height: 400px"></div>#}
+{#                <div style="margin-left: 100px; color: red;">风险1:存货与营业收入的比值增幅较大</div>#}
+{#                <div style="margin-left: 100px; color: red;">风险2:存货没有计提跌价准备</div>#}
+{#                <div style="margin-left: 100px; color: red;">风险3:毛利率和存货金额都有明显提高</div>#}
+{#            </div>#}
+{#        </div>#}
+    </div>
+{% endblock %}
 
-       </tr>
-       {% endfor %}
-       </tbody>
-   </table>
-    <script src="{% static 'jquery-3.7.0.min.js'%}"></script>
-    <script src="{% static 'bootstrap-5.3.0/js/bootstrap.min.js'%}"></script>
+{% block stock_js %}
 
-</div>
+    <script type="text/javascript">
+        var PE_data = JSON.parse(JSON.stringify({{ stock|safe }}));
+{#        console.log(PE_data["PE_TTM"]);#}
+        var acc_reciv = [];
+        var pe = [];
+        var pb = [];
+        var inv = [];
+        var endDate = Object.values(PE_data["trade_date"]);
 
-</body>
-</html>
+        var PE = Object.values(PE_data["PE_TTM"]);
+        var PB = Object.values(PE_data["PB"]);
+
+        for (var j=0;j<PE.length;j++){
+
+            pe.push(PE[j]);
+            pb.push(PB[j]);
+
+        }
+        var max1 = Math.max.apply(null, pe);
+
+        var receiv = echarts.init(document.getElementById("PE"));
+        var option1 = {
+            legend: {
+                data:["PE", "PB"]
+            },
+            xAxis: {
+                type: 'category',
+                data: endDate
+
+            },
+            yAxis: [
+                {
+                    type: "value",
+                    name: "PE",
+                    axisLabel: {
+                        formatter: '{value} %'
+                    }
+                },
+                {
+                    type: "value",
+                    name: "PB",
+                    axisLabel: {
+                        formatter: '{value}'
+                    }
+                }
+            ],
+            series: [
+                {
+                    type: 'line',
+                    name: 'PE',
+                    data: pe,
+                    yAxisIndex: 0
+                },
+                {
+                    type: 'line',
+                    name: 'PB',
+                    data: pb,
+                    yAxisIndex: 1
+                }
+
+            ]
+        };
+        receiv.setOption(option1);
+
+    </script>
+{% endblock %}

@@ -1,0 +1,229 @@
+{% extends 'basic.html' %}
+{% block index_daily %}
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-heading">指数走势图</div>
+            <div class="panel-body">
+                <div id="daily" style="widith:1000px;height: 800px"></div>
+            </div>
+            <form method="post" class="form-group" style="margin-bottom: 20px;">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-4">
+                        <input type="text" name="start_date" class="form-control" placeholder="开始日期">
+                    </div>
+                    <div class="col-md-4">
+                        <input type="text" name="end_date" class="form-control" placeholder="结束日期">
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" id="search" name="search" class="btn btn-primary">查 询</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block stock_js %}
+
+    <script type="text/javascript">
+        var daily_data = JSON.parse(JSON.stringify({{ daily_set|safe }}));
+        var basic_data = JSON.parse(JSON.stringify({{ dailybasic|safe }}));
+        var acc_reciv = [];
+        var close = [];
+        var pe = [];
+        var median = [];
+        var quater = [];
+        var cur = [];
+{#        var inv = [];#}
+        var endDate = Object.values(basic_data["trade_date"]);
+
+        var close_list = Object.values(daily_data["close"]);
+        var PE_list = Object.values(basic_data["PE_TTM"]);
+        var median_list = Object.values(basic_data["median"]);
+        var quater_list = Object.values(basic_data["20%"]);
+        var cur_list = Object.values(basic_data["cur_percent"]);
+{#        console.log(median_list);#}
+
+        for (var j=0;j<PE_list.length;j++){
+
+            close.push(close_list[j]);
+            pe.push(PE_list[j]);
+            median.push(median_list[j]);
+            quater.push(quater_list[j]);
+            cur.push(cur_list[j]);
+
+        }
+
+{#        var max1 = Math.max.apply(null, close);#}
+        var receiv = echarts.init(document.getElementById("daily"));
+        var interval;
+        if(cur.length<=60){
+            interval = 0;
+        }else{
+            interval = Math.floor(cur_list.length/60);
+        }
+        console.log("interval:"+interval);
+        var option1 = {
+            legend: {
+                data:["收盘价", "pe", "中位数", "20百分位", "当前百分位"]
+            },
+            xAxis: {
+                type: 'category',
+                data: endDate,
+                axisLabel:{
+                    show: true,
+                    interval:interval,
+                    rotate:40,
+                    textStyle: {
+                        color: '#DAA520',
+                        fontSize: 10
+                    },
+                },
+
+            },
+            yAxis: [
+                {
+                    type: "value",
+                    name: "历年走势",
+                    axisLabel: {
+                        formatter: '{value}'
+                    }
+                },
+                {
+                    type: "value",
+                    name: "市盈率",
+                    axisLabel: {
+                        formatter: '{value}'
+                    }
+                },
+
+            ],
+            series: [
+                {
+                    type: 'line',
+                    name: '收盘价',
+                    data: close,
+                    symbol: 'none',
+                    smooth: true,
+                    yAxisIndex: 0
+                },
+                {
+                    type: 'line',
+                    name: 'pe',
+                    data: pe,
+                    symbol: 'none',
+                    smooth: true,
+                    yAxisIndex: 1,
+                },
+                {
+                    type: 'line',
+                    lineStyle: {
+                        type: 'dashed',
+                        width: 2
+                    },
+                    name: '中位数',
+                    data: median,
+                    label: {
+                        show: true,
+                        position: 'right',
+                        textStyle: {
+                            color: '#DAA520',
+                            fontSize: 10
+                        },
+                        formatter: function(params){
+                            if(interval>0){
+                                if (params.dataIndex + interval >= median.length) {
+{#                                    console.log(params.value);#}
+                                    return median[0].toFixed(2);
+                                } else {return '';}
+                            }else{
+                                if (params.dataIndex + 1 >= median.length) {
+{#                                    console.log(params.dataIndex + 1);#}
+                                    return median[0].toFixed(2);
+                                } else {return '';}
+                            }
+
+                        }
+                    },
+                    symbol: 'circle',
+                    smooth: true,
+                    yAxisIndex: 1
+                },
+                {
+                    type: 'line',
+                    lineStyle: {
+                        type: 'dashed',
+                        width: 2
+                    },
+                    name: '20百分位',
+                    data: quater,
+                    label: {
+                        show: true,
+                        position: 'right',
+                        textStyle: {
+                            color: 'red',
+                            fontSize: 10
+                        },
+                        formatter: function (params) {
+                            if(interval>0){
+                                if (params.dataIndex + interval >= quater.length) {
+                                    {#                                    console.log(params.value);#}
+                                    return quater[0].toFixed(2);
+                                } else {return '';}
+                            }else{
+                                if (params.dataIndex + 1 >= quater.length) {
+                                    {#                                    console.log(params.dataIndex + 1);#}
+                                    return quater[0].toFixed(2);
+                                } else {return '';}
+                            }
+
+                        }
+                    },
+                    symbol: 'circle',
+                    smooth: true,
+                    yAxisIndex: 1
+                },
+                {
+                    type: 'line',
+                    lineStyle: {
+                        type: 'dashed',
+                        width: 2
+                    },
+                    name: '当前百分位',
+                    data: cur,
+                    label: {
+                        show: true,
+                        position: 'right',
+                        textStyle: {
+                            color: 'lightblue',
+                            fontSize: 10
+                        },
+                        formatter: function (params) {
+                            if(interval>0){
+                                if (params.dataIndex + interval >= cur.length) {
+                                    {#                                    console.log(params.value);#}
+                                    return cur[0].toFixed(2);
+                                } else {return '';}
+                            }else{
+                                if (params.dataIndex + 1 >= cur.length) {
+                                    {#                                    console.log(params.dataIndex + 1);#}
+                                    return cur[0].toFixed(2);
+                                } else {return '';}
+                            }
+
+                        }
+                    },
+                    symbol: 'circle',
+                    smooth: true,
+                    yAxisIndex: 1
+                }
+
+            ]
+        };
+        receiv.setOption(option1);
+
+    </script>
+{% endblock %}

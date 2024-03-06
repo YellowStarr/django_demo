@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/web/views.py" line="13" />
+    <bookmark url="file://$PROJECT_DIR$/web/views.py" line="15" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1dd010ec-0268-400a-b768-b3b64bcbfd0c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/add_batch_daily.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/price.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/django_demo.iml" afterPath="$PROJECT_DIR$/.idea/django_demo.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/index_daily.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/templates/index_info.html" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/web/utils/myLog.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/django_demo/urls.py" afterPath="$PROJECT_DIR$/django_demo/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/models.py" afterPath="$PROJECT_DIR$/web/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/balance_index.html" afterPath="$PROJECT_DIR$/web/templates/balance_index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/basic.html" afterPath="$PROJECT_DIR$/web/templates/basic.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/daily.html" afterPath="$PROJECT_DIR$/web/templates/daily.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/show_pe.html" afterPath="$PROJECT_DIR$/web/templates/show_pe.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/templates/stock_info.html" afterPath="$PROJECT_DIR$/web/templates/stock_info.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/utils/dailyToExcel.py" afterPath="$PROJECT_DIR$/web/utils/dailyToExcel.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/utils/financialToExcel.py" afterPath="$PROJECT_DIR$/web/utils/financialToExcel.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/utils/MyTools.py" afterPath="$PROJECT_DIR$/web/utils/MyTools.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/utils/insertDB.py" afterPath="$PROJECT_DIR$/web/utils/insertDB.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web/views.py" afterPath="$PROJECT_DIR$/web/views.py" />
     </list>
@@ -32,9 +31,9 @@
   </component>
   <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/django_demo$insertDB.coverage" NAME="insertDB Coverage Results" MODIFIED="1708597237765" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/web" />
+    <SUITE FILE_PATH="coverage/django_demo$insertDB.coverage" NAME="insertDB Coverage Results" MODIFIED="1709726430007" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/web" />
     <SUITE FILE_PATH="coverage/django_demo$financialToExcel.coverage" NAME="financialToExcel Coverage Results" MODIFIED="1701784425305" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/web/utils" />
-    <SUITE FILE_PATH="coverage/django_demo$insertDB__1_.coverage" NAME="insertDB (1) Coverage Results" MODIFIED="1708594101346" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/web/utils" />
+    <SUITE FILE_PATH="coverage/django_demo$insertDB__1_.coverage" NAME="insertDB (1) Coverage Results" MODIFIED="1709302469297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/web/utils" />
   </component>
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
@@ -54,25 +53,65 @@
     <favorites_list name="django_demo" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.53576535">
+    <splitter split-orientation="horizontal" split-proportion="0.65214795">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/web/views.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.8207965">
-                  <caret line="84" column="7" selection-start-line="84" selection-start-column="7" selection-end-line="84" selection-end-column="7" />
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="383" column="52" selection-start-line="383" selection-start-column="52" selection-end-line="383" selection-end-column="52" />
                   <folding>
                     <element signature="e#0#45#0" expanded="true" />
-                    <element signature="e#490#601#0" expanded="false" />
-                    <element signature="e#1063#2574#0" expanded="false" />
-                    <element signature="e#5163#6143#0" expanded="false" />
-                    <element signature="e#6184#6575#0" expanded="false" />
-                    <element signature="e#6606#7416#0" expanded="false" />
-                    <element signature="e#7450#8915#0" expanded="false" />
-                    <element signature="e#8943#10551#0" expanded="false" />
-                    <element signature="e#10580#11992#0" expanded="false" />
+                    <element signature="e#1141#1581#0" expanded="false" />
+                    <element signature="e#1611#3122#0" expanded="false" />
+                    <element signature="e#3161#3501#0" expanded="false" />
+                    <element signature="e#3537#5674#0" expanded="false" />
+                    <element signature="e#5712#6692#0" expanded="false" />
+                    <element signature="e#5712#5774#1" expanded="false" />
+                    <element signature="e#6733#7124#0" expanded="false" />
+                    <element signature="e#6733#6824#1" expanded="false" />
+                    <element signature="e#7155#7965#0" expanded="false" />
+                    <element signature="e#7999#9464#0" expanded="false" />
+                    <element signature="e#9492#11100#0" expanded="false" />
+                    <element signature="e#11129#12541#0" expanded="false" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="insertDB.py" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/web/utils/insertDB.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.64576805">
+                  <caret line="140" column="67" selection-start-line="140" selection-start-column="67" selection-end-line="140" selection-end-column="67" />
+                  <folding>
+                    <element signature="e#182#196#0" expanded="true" />
+                    <marker date="1709726428268" expanded="true" signature="2862:2906" placeholder="select DISTI... web_index_daily" />
+                    <marker date="1709726428268" expanded="true" signature="3846:3895" placeholder="select DISTI... web_index_dailybasic" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="MyTools.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/web/utils/MyTools.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="37" column="8" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="8" />
+                  <folding>
+                    <element signature="e#184#203#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="basic.html" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/web/templates/basic.html">
+              <provider selected="true" editor-type-id="text-editor">
+                <state vertical-scroll-proportion="0.0">
+                  <caret line="12" column="31" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -85,33 +124,25 @@
             <entry file="file://$PROJECT_DIR$/web/models.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state vertical-scroll-proportion="0.0">
-                  <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+                  <caret line="469" column="14" selection-start-line="469" selection-start-column="4" selection-end-line="469" selection-end-column="14" />
                   <folding>
-                    <element signature="e#696#13733#0" expanded="false" />
-                    <element signature="e#696#717#1" expanded="false" />
-                    <element signature="e#13767#21626#0" expanded="false" />
-                    <element signature="e#13767#13786#1" expanded="false" />
-                    <element signature="e#21662#30362#0" expanded="false" />
+                    <element signature="e#92#670#0" expanded="false" />
+                    <element signature="e#705#13844#0" expanded="false" />
+                    <element signature="e#13878#21839#0" expanded="false" />
+                    <element signature="e#21875#30677#0" expanded="false" />
+                    <element signature="e#30715#31238#0" expanded="false" />
+                    <element signature="e#31277#31300#1" expanded="false" />
+                    <element signature="e#36486#38515#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="daily.html" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/web/templates/daily.html">
+          <file leaf-file-name="index_daily.html" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/web/templates/index_daily.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.3340961">
-                  <caret line="35" column="45" selection-start-line="35" selection-start-column="45" selection-end-line="35" selection-end-column="45" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="price.html" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/web/templates/price.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.0">
-                  <caret line="42" column="40" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="53" />
+                <state vertical-scroll-proportion="0.9309211">
+                  <caret line="176" column="66" selection-start-line="176" selection-start-column="66" selection-end-line="176" selection-end-column="66" />
                   <folding />
                 </state>
               </provider>
@@ -147,7 +178,6 @@
         <option value="$PROJECT_DIR$/web/strategy/selectStocks/finaceStratagy.py" />
         <option value="$PROJECT_DIR$/web/utils/financeFocus.py" />
         <option value="$PROJECT_DIR$/web/templates/chart_show.html" />
-        <option value="$PROJECT_DIR$/web/utils/MyTools.py" />
         <option value="$PROJECT_DIR$/readme.md" />
         <option value="$PROJECT_DIR$/web/templates/analyze.html" />
         <option value="$PROJECT_DIR$/web/templates/income_t.html" />
@@ -157,14 +187,19 @@
         <option value="$PROJECT_DIR$/web/templates/add_batch_daily.html" />
         <option value="$PROJECT_DIR$/web/utils/dailyToExcel.py" />
         <option value="$PROJECT_DIR$/web/templates/balance_index.html" />
-        <option value="$PROJECT_DIR$/web/models.py" />
-        <option value="$PROJECT_DIR$/web/templates/basic.html" />
         <option value="$PROJECT_DIR$/web/templates/price.html" />
-        <option value="$PROJECT_DIR$/web/templates/stock_info.html" />
-        <option value="$PROJECT_DIR$/django_demo/urls.py" />
-        <option value="$PROJECT_DIR$/web/utils/insertDB.py" />
         <option value="$PROJECT_DIR$/web/templates/daily.html" />
+        <option value="$PROJECT_DIR$/web/templates/stock_info.html" />
+        <option value="$PROJECT_DIR$/web/templates/show_pe.html" />
+        <option value="$PROJECT_DIR$/web/templates/basic.html" />
+        <option value="$PROJECT_DIR$/web/templates/index_info.html" />
+        <option value="$PROJECT_DIR$/django_demo/urls.py" />
+        <option value="$PROJECT_DIR$/web/models.py" />
+        <option value="$PROJECT_DIR$/web/Log/log.log" />
+        <option value="$PROJECT_DIR$/web/utils/MyTools.py" />
+        <option value="$PROJECT_DIR$/web/templates/index_daily.html" />
         <option value="$PROJECT_DIR$/web/views.py" />
+        <option value="$PROJECT_DIR$/web/utils/insertDB.py" />
       </list>
     </option>
   </component>
@@ -174,10 +209,10 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="1912" />
-    <option name="y" value="-2" />
-    <option name="width" value="1936" />
-    <option name="height" value="1066" />
+    <option name="x" value="-7" />
+    <option name="y" value="1080" />
+    <option name="width" value="1934" />
+    <option name="height" value="1057" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -204,6 +239,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -250,14 +286,49 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
+              <option name="myItemId" value="utils" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="django_demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="django_demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="django_demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="django_demo" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Log" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -270,8 +341,8 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\WorkPlace\django_demo\web\templates" />
       <recent name="E:\WorkPlace\django_demo\web\utils" />
+      <recent name="E:\WorkPlace\django_demo\web\templates" />
       <recent name="E:\WorkPlace\django_demo\web\" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -279,7 +350,7 @@
       <recent name="E:\WorkPlace\django_demo\web" />
     </key>
   </component>
-  <component name="RunManager" selected="Django server.django_demo">
+  <component name="RunManager" selected="Python.insertDB">
     <configuration default="false" name="insertDB" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -611,28 +682,28 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-2" width="1936" height="1066" extended-state="6" />
-    <editor active="false" />
+    <frame x="-7" y="1080" width="1934" height="1057" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.114072494" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.106723584" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290461" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27813852" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.118971065" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2658092" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24222937" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32976446" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20150054" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24222937" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="UnknownFeatures">
@@ -651,74 +722,18 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="24" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/web/views.py</url>
+          <line>366</line>
+          <option name="timeStamp" value="27" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="28" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/web/templates/add_history_daily.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.142858">
-          <caret line="18" column="91" selection-start-line="18" selection-start-column="91" selection-end-line="18" selection-end-column="91" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../stockProject/utils/MyTools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.3114754">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/balance.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.0691319">
-          <caret line="39" column="90" selection-start-line="39" selection-start-column="83" selection-end-line="39" selection-end-column="90" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../Interface_web/interface/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.1449068">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/software/Anaconda3/Lib/site-packages/django/templatetags/static.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.32853982">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/chart_show.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5518395">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/utils/dataGraphs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5276549">
-          <caret line="208" column="0" selection-start-line="208" selection-start-column="0" selection-end-line="208" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../stockProject/stockAnalyse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.6295223">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../stockProject/dataGraphs.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.28364688">
-          <caret line="31" column="55" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="55" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../stockProject/utils/historyStock.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.38205498">
@@ -747,13 +762,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/analyze.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.071428">
-          <caret line="69" column="15" selection-start-line="69" selection-start-column="15" selection-end-line="74" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/.PyCharm50/pycharm.exe.vmoptions">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.46515396">
@@ -765,13 +773,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/show_pe.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4211137">
-          <caret line="11" column="14" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -793,13 +794,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.047182176">
           <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/utils/MyTools.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8453473">
-          <caret line="22" column="17" selection-start-line="22" selection-start-column="17" selection-end-line="22" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -842,13 +836,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.19911504">
           <caret line="5" column="18" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://D:/software/Anaconda3/Lib/site-packages/tushare/pro/client.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="32" selection-start-line="52" selection-start-column="32" selection-end-line="52" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -908,13 +895,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://D:/software/Anaconda3/Lib/site-packages/django/core/handlers/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="129" column="0" selection-start-line="129" selection-start-column="0" selection-end-line="129" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://D:/software/Anaconda3/Lib/site-packages/django/core/handlers/wsgi.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -950,14 +930,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/basic.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="34" selection-start-line="26" selection-start-column="34" selection-end-line="26" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/web/templates/balance_index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="3.46789">
@@ -965,72 +937,191 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/utils/insertDB.py">
+    <entry file="file://D:/software/Anaconda3/Lib/site-packages/chinese_calendar/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7586207">
-          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/software/Anaconda3/Lib/site-packages/chinese_calendar/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2791728">
+          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/manage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/software/Anaconda3/Lib/site-packages/django/db/models/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.7356195">
+          <caret line="405" column="38" selection-start-line="405" selection-start-column="32" selection-end-line="405" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/daily.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.9744">
+          <caret line="13" column="41" selection-start-line="13" selection-start-column="41" selection-end-line="13" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/price.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6048">
+          <caret line="50" column="39" selection-start-line="50" selection-start-column="39" selection-end-line="50" selection-end-column="39" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/templates/stock_info.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5194805">
-          <caret line="28" column="44" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.4704">
+          <caret line="56" column="41" selection-start-line="56" selection-start-column="41" selection-end-line="56" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/analyze.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0">
+          <caret line="0" column="23" selection-start-line="0" selection-start-column="11" selection-end-line="0" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/show_pe.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.7132262">
+          <caret line="66" column="43" selection-start-line="66" selection-start-column="43" selection-end-line="66" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/index_info.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.06501548">
+          <caret line="11" column="26" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://D:/software/Anaconda3/Lib/site-packages/tushare/pro/client.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <caret line="469" column="14" selection-start-line="469" selection-start-column="4" selection-end-line="469" selection-end-column="14" />
           <folding>
-            <element signature="e#696#13733#0" expanded="false" />
-            <element signature="e#696#717#1" expanded="false" />
-            <element signature="e#13767#21626#0" expanded="false" />
-            <element signature="e#13767#13786#1" expanded="false" />
-            <element signature="e#21662#30362#0" expanded="false" />
+            <element signature="e#92#670#0" expanded="false" />
+            <element signature="e#705#13844#0" expanded="false" />
+            <element signature="e#13878#21839#0" expanded="false" />
+            <element signature="e#21875#30677#0" expanded="false" />
+            <element signature="e#30715#31238#0" expanded="false" />
+            <element signature="e#31277#31300#1" expanded="false" />
+            <element signature="e#36486#38515#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/price.html">
+    <entry file="file://D:/software/Anaconda3/Lib/site-packages/django/core/handlers/base.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="40" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/web/templates/daily.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3340961">
-          <caret line="35" column="45" selection-start-line="35" selection-start-column="45" selection-end-line="35" selection-end-column="45" />
-          <folding />
+        <state vertical-scroll-proportion="0.89085543">
+          <caret line="187" column="0" selection-start-line="187" selection-start-column="0" selection-end-line="187" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/django_demo/urls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.55586594">
-          <caret line="25" column="30" selection-start-line="25" selection-start-column="30" selection-end-line="25" selection-end-column="30" />
+        <state vertical-scroll-proportion="0.6486486">
+          <caret line="31" column="37" selection-start-line="31" selection-start-column="37" selection-end-line="31" selection-end-column="37" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/static/echarts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.8648648">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/basic.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="12" column="31" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/utils/myLog.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.0810812">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/Log/log.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.8874047">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/web/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8207965">
-          <caret line="84" column="7" selection-start-line="84" selection-start-column="7" selection-end-line="84" selection-end-column="7" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="383" column="52" selection-start-line="383" selection-start-column="52" selection-end-line="383" selection-end-column="52" />
           <folding>
             <element signature="e#0#45#0" expanded="true" />
-            <element signature="e#490#601#0" expanded="false" />
-            <element signature="e#1063#2574#0" expanded="false" />
-            <element signature="e#5163#6143#0" expanded="false" />
-            <element signature="e#6184#6575#0" expanded="false" />
-            <element signature="e#6606#7416#0" expanded="false" />
-            <element signature="e#7450#8915#0" expanded="false" />
-            <element signature="e#8943#10551#0" expanded="false" />
-            <element signature="e#10580#11992#0" expanded="false" />
+            <element signature="e#1141#1581#0" expanded="false" />
+            <element signature="e#1611#3122#0" expanded="false" />
+            <element signature="e#3161#3501#0" expanded="false" />
+            <element signature="e#3537#5674#0" expanded="false" />
+            <element signature="e#5712#6692#0" expanded="false" />
+            <element signature="e#5712#5774#1" expanded="false" />
+            <element signature="e#6733#7124#0" expanded="false" />
+            <element signature="e#6733#6824#1" expanded="false" />
+            <element signature="e#7155#7965#0" expanded="false" />
+            <element signature="e#7999#9464#0" expanded="false" />
+            <element signature="e#9492#11100#0" expanded="false" />
+            <element signature="e#11129#12541#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/templates/index_daily.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9309211">
+          <caret line="176" column="66" selection-start-line="176" selection-start-column="66" selection-end-line="176" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/utils/MyTools.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="37" column="8" selection-start-line="37" selection-start-column="8" selection-end-line="37" selection-end-column="8" />
+          <folding>
+            <element signature="e#184#203#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/utils/insertDB.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.64576805">
+          <caret line="140" column="67" selection-start-line="140" selection-start-column="67" selection-end-line="140" selection-end-column="67" />
+          <folding>
+            <element signature="e#182#196#0" expanded="true" />
+            <marker date="1709726428268" expanded="true" signature="2862:2906" placeholder="select DISTI... web_index_daily" />
+            <marker date="1709726428268" expanded="true" signature="3846:3895" placeholder="select DISTI... web_index_dailybasic" />
           </folding>
         </state>
       </provider>

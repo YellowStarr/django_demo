@@ -29,6 +29,8 @@ urlpatterns = [
     path('add/history/daily/', views.add_history_daily),
     path('balance/', views.finance_balance_list),
     path('stock_info/', views.stock_info),
+    path('index_info/', views.index_Info),
+    path('index_daily/<str:ts_code>', views.index_daily),
     path('balance_index/', views.balance_index),
     path('income_t/', views.income_t),
     path('analyze/', views.analyze),
