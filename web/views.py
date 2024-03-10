@@ -11,6 +11,7 @@ from django.core.paginator import Paginator
 from web.utils.stock_base import StockBasic
 from web.utils.MyTools import MyTools
 import datetime
+from web.fanacial.financialIndex import FinancialIndex
 
 
 _TOKEN = "da4c97957d6f4063991d86f1ccce4c43c6c0275d6b640e706ae9ff9d"
@@ -35,6 +36,7 @@ def show_pe(request):
     return render(request, "show_pe.html", {"stock": json_data})
 
 def get_daily(request):
+    """需要修改，不需要展示这么多数据，核心在可视化股票数据"""
     today = datetime.date.today()
 
     print(today)

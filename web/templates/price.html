@@ -10,7 +10,7 @@
         <table class="table table-bordered">
             <thead>
             <tr>
-                <th scope="col">股票名称</th>
+
                 <th scope="col">股票代码</th>
                 <th scope="col">交易日期</th>
                 <th scope="col">开盘价</th>
@@ -33,7 +33,7 @@
             <tbody>
             {% for stock in priceset %}
                 <tr>
-                    <td>{{ stock.name }}</td>
+
                     <td>{{ stock.ts_code }}</td>
                     <td>{{ stock.trade_date }}</td>
                     <td>{{ stock.open }}</td>

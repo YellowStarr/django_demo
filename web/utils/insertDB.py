@@ -137,7 +137,7 @@ if __name__ == "__main__":
 
     p_to_sql = PdToSql()
     # p_to_sql.update_daily(start_date="20240302", end_date="20240306")
-    p_to_sql.update_dailybasics(start_date="20240302", end_date="20240306")
+    # p_to_sql.update_dailybasics(start_date="20240302", end_date="20240306")
     # p_to_sql.update_3Sheets(s_date="20240101", e_date="20240430")
     # p_to_sql.update_daily('000001.SH')
     # d = [6,4,5,7,9,22,1,10]
